@@ -6,7 +6,29 @@ import './style.css';
 document.querySelector('.cep-button').addEventListener('click', searchCep);
 const sectionProducts = document.getElementsByClassName('products');
 
-const resultProduct = await fetchProductsList('computador');
-resultProduct.forEach((element) => {
-  sectionProducts[0].appendChild(createProductElement(element));
-});
+const errorMessage = (errorMessage) => {
+  const createErrorSection = document.createElement('section');
+  createErrorSection.className = 'error';
+  createErrorSection.innerText = errorMessage;
+  sectionProducts[0].appendChild(createErrorSection);
+};
+
+const loadingProducts = async () => {
+  const resultProduct = await fetchProductsList('computador');
+  resultProduct.forEach((element) => {
+    sectionProducts[0].appendChild(createProductElement(element));
+  });
+};
+
+const loadingMessage = async () => {
+  const loading = document.createElement('section');
+  loading.className = 'loading';
+  loading.innerText = 'carregando...';
+  sectionProducts[0].appendChild(loading);
+  await loadingProducts().catch((error) => errorMessage(error.message));
+  sectionProducts[0].removeChild(loading);
+};
+
+window.onload = () => {
+  loadingMessage();
+};
