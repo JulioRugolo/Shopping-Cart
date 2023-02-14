@@ -6,10 +6,10 @@ import './style.css';
 document.querySelector('.cep-button').addEventListener('click', searchCep);
 const sectionProducts = document.getElementsByClassName('products');
 
-const errorMessage = (errorMessage) => {
+const errorMessage = (error) => {
   const createErrorSection = document.createElement('section');
   createErrorSection.className = 'error';
-  createErrorSection.innerText = errorMessage;
+  createErrorSection.innerText = error;
   sectionProducts[0].appendChild(createErrorSection);
 };
 
