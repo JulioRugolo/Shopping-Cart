@@ -18,9 +18,9 @@ const addToCard = async () => {
     addButton[index].addEventListener('click', async () => {
       const findById = produtID[index].firstChild.innerText;
       const getItemById = await fetchProduct(findById);
-      const createCartItem = createCartProductElement(getItemById);
+      const createItem = createCartProductElement(getItemById);
       const olCart = document.getElementsByClassName('cart__products');
-      olCart[0].appendChild(createCartItem);
+      olCart[0].appendChild(createItem);
     });
   }
 };
