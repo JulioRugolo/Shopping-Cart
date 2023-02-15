@@ -1,6 +1,7 @@
 import { searchCep } from './helpers/cepFunctions';
 import { fetchProductsList, fetchProduct } from './helpers/fetchFunctions';
 import { createProductElement, createCartProductElement } from './helpers/shopFunctions';
+import { getSavedCartIDs, saveCartID } from './helpers/cartFunctions';
 import './style.css';
 
 document.querySelector('.cep-button').addEventListener('click', searchCep);
@@ -16,6 +17,7 @@ const addToCard = async () => {
       const createItem = createCartProductElement(getItemById);
       const olCart = document.getElementsByClassName('cart__products');
       olCart[0].appendChild(createItem);
+      saveCartID(findById);
     });
   }
 };
@@ -34,6 +36,23 @@ const loadingProducts = async () => {
   });
 };
 
+const retrieveCart = async () => {
+  const itensLocalStorage = getSavedCartIDs();
+  if (itensLocalStorage.length === 1) {
+    const getItemById = await fetchProduct(itensLocalStorage);
+    const createItem = createCartProductElement(getItemById);
+    const olCart = document.getElementsByClassName('cart__products');
+    olCart[0].appendChild(createItem);
+  } else {
+    itensLocalStorage.forEach(async (item) => {
+      const getItemById = await fetchProduct(item);
+      const createItem = createCartProductElement(getItemById);
+      const olCart = document.getElementsByClassName('cart__products');
+      olCart[0].appendChild(createItem);
+    });
+  }
+};
+
 const loadingMessage = async () => {
   const loading = document.createElement('section');
   loading.className = 'loading';
@@ -45,5 +64,6 @@ const loadingMessage = async () => {
 };
 
 window.onload = () => {
+  retrieveCart();
   loadingMessage();
 };
