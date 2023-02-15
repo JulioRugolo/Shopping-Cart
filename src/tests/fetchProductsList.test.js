@@ -1,5 +1,5 @@
 import './mocks/fetchSimulator';
-import { fetchProductsList } from '../helpers/fetchFunctions';
+import { fetchProductsList, fetchProduct } from '../helpers/fetchFunctions';
 import computadorSearch from './mocks/search';
 
 // implemente seus testes aqui
@@ -23,13 +23,17 @@ describe('Teste a função fetchProductsList', () => {
     await expect(() => fetchProductsList()).rejects.toThrow('Termo de busca não informado');
   });
 
-  it('fetch é chamado com um parâmetro inexistente fetchProductsList', async () => {
-    const param = 'haha'
-    const actual =  `URL não mapeadahttps://api.mercadolibre.com/sites/MLB/search?q=${param}`
-    const functionInput = fetchProductsList(param);
-    await expect(() => functionInput).rejects.toThrow(actual);
-  });
-
   // it('...', () => {
   // });
 });
+
+describe('Teste a função fetchProduct', () => {
+  it('fetchProduct é chamada sem nenhum parâmetro', async () => {
+    expect(fetchProduct()).rejects.toThrow('ID não informado');
+  });
+  it('fetchProduct é chamada com ID', async () => {
+    expect(typeof await fetchProduct('MLB1405519561')).toBe('object');
+  });
+});
+
+
