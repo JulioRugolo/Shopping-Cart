@@ -6,11 +6,6 @@ import './style.css';
 document.querySelector('.cep-button').addEventListener('click', searchCep);
 const sectionProducts = document.getElementsByClassName('products');
 
-const createCartItem = (index) => {
-  const createItem = document.createElement('li');
-  createItem;
-};
-
 const addToCard = async () => {
   const addButton = document.getElementsByClassName('product__add');
   const produtID = document.getElementsByClassName('product');
