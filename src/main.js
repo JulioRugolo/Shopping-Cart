@@ -14,7 +14,7 @@ const errorMessage = (error) => {
 };
 
 const loadingProducts = async () => {
-  const resultProduct = await fetchProductsList('computador');
+  const resultProduct = await fetchProductsList('computdasdadasador');
   resultProduct.forEach((element) => {
     sectionProducts[0].appendChild(createProductElement(element));
   });

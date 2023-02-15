@@ -9,8 +9,5 @@ export const fetchProductsList = async (input) => {
   const url = `https://api.mercadolibre.com/sites/MLB/search?q=${input}`;
   const response = await fetch(url);
   const data = await response.json();
-  if (data.results.length < 1) {
-    throw new Error('Algum erro ocorreu, recarregue a página e tente novamente');
-  }
   return data.results;
 };
