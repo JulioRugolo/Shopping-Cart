@@ -13,10 +13,15 @@ const addToCard = async () => {
   for (let index = 0; index < addButton.length; index += 1) {
     addButton[index].addEventListener('click', async () => {
       const findById = produtID[index].firstChild.innerText;
+      const getPrice = document.getElementsByClassName('total-price')[0];
       const getItemById = await fetchProduct(findById);
+      let updateValue = localStorage.getItem('cartValue');
+      updateValue = getItemById.price + Number(updateValue);
+      localStorage.setItem('cartValue', updateValue);
       const createItem = createCartProductElement(getItemById);
       const olCart = document.getElementsByClassName('cart__products');
       olCart[0].appendChild(createItem);
+      getPrice.innerText = localStorage.getItem('cartValue');
       saveCartID(findById);
     });
   }
@@ -38,6 +43,9 @@ const loadingProducts = async () => {
 
 const retrieveCart = async () => {
   const itensLocalStorage = getSavedCartIDs();
+  const retrieveValue = localStorage.getItem('cartValue');
+  const cartValue = document.getElementsByClassName('total-price')[0];
+  cartValue.innerText = retrieveValue;
   if (itensLocalStorage.length === 1) {
     const getItemById = await fetchProduct(itensLocalStorage);
     const createItem = createCartProductElement(getItemById);
